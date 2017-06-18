@@ -10,6 +10,23 @@ function removeDupes(arr){
  return Array.from(map.keys()).filter(x=>map.get(x)>1);
  }
 
+function binarySearch(arr,element){
+  
+  arr = arr.sort();
+  let mid = arr[Number.parseInt(arr.length/2)];
+  if(element===mid){
+      return element+" is in the list.";
+    }
+
+    if(element<mid){
+      return binarySearch(arr.slice(0,Number.parseInt(arr.length/2)),element);
+    }
+    else if(element>mid){
+      return binarySearch(arr.slice(Number.parseInt(arr.length/2)+1,arr.length),element);
+    }
+    
+    return element+" is not in the list.";
+}
 
 function bubbleSort(arr){
   for(var i=0;i<arr.length;i++){
