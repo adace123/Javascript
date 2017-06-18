@@ -24,6 +24,42 @@ function bubbleSort(arr){
   return arr;
 }
 
+function rot13(str) { 
+  var rotated = [];
+  for(var i=0;i<str.length;i++){
+    if(str[i].match(/[A-Z]/)){
+      if(str.charCodeAt(i)-65+13>=26){
+      
+        rotated.push(String.fromCharCode(str.charCodeAt(i)+13-26));
+    }
+      else{ 
+        rotated.push(String.fromCharCode(str.charCodeAt(i)+13));
+      }
+    }
+  else{
+    rotated.push(str[i]);
+  }
+  }  
+
+  return rotated.join("");
+}
+
+function diffArray(arr1, arr2) {
+  var obj = {};
+  var newArr = arr1.concat(arr2);
+  var myArr = [];
+  for(var i=0;i<newArr.length;i++){
+    if(!obj[newArr[i]]){
+      
+      obj[newArr[i]]=1;
+      myArr.push(newArr[i]);
+    } else {
+      delete obj[newArr[i]];
+      myArr.splice(myArr.indexOf(newArr[i]),1);
+    }
+  }
+  return myArr;
+}
 
 function selectionSort(arr){
   for(var i=0;i<arr.length-1;i++){
