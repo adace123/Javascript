@@ -91,4 +91,4 @@ const squares = (arr) => arr.map(x => x ** 2);
 
 const evens = (arr) => arr.filter(x => x % 2 === 0);
 
-[1,2,3,4,5].pipe(squares).pipe(evens);
+range(1,20).pipe(squares).pipe(evens);
