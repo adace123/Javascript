@@ -1,0 +1,22 @@
+<script src="unpkg.com/vue"></script>
+<script src="colorsquares.js"></script>
+<link rel="stylesheet" href="main.css">
+<div id="main">
+  <div id="container">
+ <color-box v-for="(color,index) in colorBoxes"  @remove-box="deleteBox" :color="color" :id="index" :key="index"></color-box>
+</div>
+   
+  <div>
+      <h3>Speed: {{speed}}ms</h3>
+  </div>
+  <div>
+     <input  @input="changeSpeed($event)" id="slider" min="200"  max="3000" type="range"> 
+  </div>
+  <div >
+    <h3>Number of blocks</h3>
+  </div>
+  <div >
+    <input @input="fillRandomColors"  :placeholder="numBoxes" v-model="numBoxes" type="number">
+  </div>
+  
+</div>
