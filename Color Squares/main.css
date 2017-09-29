@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+
+* {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  font-family: 'Roboto';
+  font-weight: normal;
+}
+
+html { height: 100%; overflow:auto; }
+body { height: 100%; }
+
+
+#container {
+  display: grid;
+  grid-template-columns: repeat(8,1fr);
+/*   grid-template-rows: repeat(1,minmax(100px,auto)); */
+  grid-auto-rows: 125px;
+  width: 100%;
+  margin: 0 auto;
+  padding-bottom: 3%;
+}
+
+.overlay {
+  width: 100%;
+  height: 100%;
+  background-color: #424242;
+  z-index: 1;
+  opacity: 0;
+}
+
+.removeButton {
+  margin: 0 auto;
+  cursor: pointer;
+  top: 40%;
+  height: 30%;
+  width: 100%;
+  display: inline-block;
+  position: relative;
+}
+
+.overlay:hover {
+  animation: showOverlay 300ms forwards;
+}
+@keyframes showOverlay {
+  from {
+    opacity: 0;
+  } 
+  to {
+    opacity: .95;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  #container {
+    grid-template-columns: repeat(4,1fr);
+  }
+}
