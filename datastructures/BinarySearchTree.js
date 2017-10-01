@@ -78,7 +78,7 @@ class BinarySearchTree {
   }
   
 }
-
+//each Node object has value and references to left and right nodes
 class Node {
   constructor(value) {
     this.value = value;
