@@ -1,0 +1,149 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
+
+html, body{
+	margin: 0;
+	font-family: 'Open Sans', sans-serif;
+	background-color: #FFFFFF;
+	height: 100%;
+  width: 100%;
+}
+
+.container{
+	width: 100%;
+	height: 100%;
+	max-width: 960px;
+	padding: 100px 20px 0;
+	margin: 0 auto;
+	box-sizing: border-box;
+}
+
+.message-nav {
+  padding: 8px 12px;
+  height: 15px;
+  background-color: #1e8cc5;
+}
+
+.message-nav span, a {
+  font-size: 12px;
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+}
+
+.no-messages {
+  display: none;
+  height: 20px;
+  font-size: 12px;
+  background: lightgray;
+  color: gray;
+  padding: 10px 12px;
+}
+
+.message {
+  height: 56px;
+  padding: 8px 12px;
+  position: relative;
+  border-bottom: 1px solid gray;
+  display: none;
+}
+
+.message-content {
+  
+  padding-right: 12px;
+  position: relative;
+  height: 80%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.message-content div {
+  position: absolute;
+  top: 13%;
+}
+
+.image {
+  height: 36px;
+  width: 40px;
+  border-radius: 50%;
+  background-size: cover !important;
+}
+
+.image-container {
+  width: 120px;
+}
+
+a, i {
+  cursor: pointer;
+}
+
+.name {
+  margin-left: 48px;
+  font-size: 12px;
+}
+
+.message-text {
+  margin-left: 142px;
+  bottom: 15px;
+  height: 75%;
+  line-height: 15px;
+  max-width: 75%;
+}
+
+.subject {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.text {
+  font-size: 14px;
+  margin-bottom: 15px;
+  color: gray;
+}
+
+.time {
+  text-align: right;
+  font-size: 12px;
+  margin-top: 1%;
+  margin-left: 90%;
+  position: relative;
+}
+
+.delete {
+  margin-left: 94%;
+  position: absolute;
+  bottom: 35%; 
+}
+
+i {
+  color: gray;
+}
+
+i:hover {
+  animation: wiggle 400ms;
+}
+
+@keyframes wiggle {
+  25% {
+    transform: rotate(45deg);
+  }
+  75% {
+    transform: rotate(-45deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+#dismiss a:hover {
+  animation: changeColor 200ms forwards;
+}
+
+@keyframes changeColor {
+  from {
+    color: white;
+  } 
+  to {
+    color: purple;
+  }
+}
