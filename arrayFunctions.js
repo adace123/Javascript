@@ -2,6 +2,9 @@ Array.prototype.pipe = function(func) {
   return func(this);
 }
 
+Array.prototype.identical = function(b) {
+    return this.join("") === b.join("");
+}
 
 const range = (start,end,step = 1) => {
   let fillSize = step > 1 ? Math.round((end-start+1)/step) : (end-start+1);
