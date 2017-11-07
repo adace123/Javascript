@@ -76,7 +76,55 @@ class BinarySearchTree {
       }
     }
   }
-  
+  remove(value, node = this.root) {
+    if(this.root === null) {
+      console.log("Error. Empty tree.");
+      return false;
+    }
+    
+    if(node.value === value) {
+      
+      if(node.isLeaf()) {
+        console.log(node.value + " leaf")
+        if(node === this.root) {
+          this.root = null;
+        }
+        else if(node.parent.left.value === value) node.parent.left = null;
+        else node.parent.right = null;
+      } 
+      else if(node.left && !node.right) {
+        console.log("left child only")
+        node.value = node.left.value;
+        node.left = null;
+      }
+      else if(node.right && !node.left) {
+        console.log("right child only")
+        node.value = node.right.value;
+        node.right = null;
+      }
+      else {
+        let temp = node.right;
+        while(!temp.isLeaf()) {
+          temp = temp.left;
+        }
+        node.value = temp.value;
+        if(temp.parent.left.value === node.value) temp.parent.left = null;
+        else temp.parent.right = null;
+      }
+      
+      return true;
+    }
+    
+    
+    if(node.left && value < node.value) {
+      return this.remove(value,node.left);
+    } 
+    else if(node.right && value > node.value) {
+      return this.remove(value,node.right);
+    }
+    console.log("Value not found");
+    return false;
+  }
 }
 //each Node object has value and references to left and right nodes
 class Node {
