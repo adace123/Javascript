@@ -84,19 +84,16 @@ function quickSort(arr, sorted = []) {
   }
   
   let pivot = arr[arr.length - 1];
-  for (let i = 0; i < arr.length; i++) {
-    if (arr[i] >= pivot) {
-      for (let j = i + 1; j < arr.length; j++) {
-        if (arr[j] <= pivot) {
-          let temp = arr[i];
-          arr[i] = arr[j];
-          arr[j] = temp;
-
-          break;
-        }
-      }
+  for (let i = arr.length - 1; i >= 0; i--) {
+    if (arr[i-1] >= pivot) {
+        let temp = arr[i-1];
+        arr[i-1] = arr[i];
+        arr[i] = temp;
       right.push(arr[i]);
-    } else left.push(arr[i]);
+    } else {
+      left.push(arr[i]);
+    }
+    
   }
   quickSort(left, sorted);
   quickSort(right, sorted);
