@@ -10,23 +10,6 @@ function removeDupes(arr){
  return Array.from(map.keys()).filter(x=>map.get(x)>1);
  }
 
-function binarySearch(arr,element){
-  
-  arr = arr.sort();
-  let mid = arr[Number.parseInt(arr.length/2)];
-  if(element===mid){
-      return element+" is in the list.";
-    }
-
-    if(element<mid){
-      return binarySearch(arr.slice(0,Number.parseInt(arr.length/2)),element);
-    }
-    else if(element>mid){
-      return binarySearch(arr.slice(Number.parseInt(arr.length/2)+1,arr.length),element);
-    }
-    
-    return element+" is not in the list.";
-}
 
 function bubbleSort(arr){
   for(var i=0;i<arr.length;i++){
@@ -90,20 +73,35 @@ function selectionSort(arr){
   return arr;
 }
 
-//to be completed
-function mergeSort(arr){
-  if(arr.length<2) return;
-  
-  else{
-    var mergedArray = [];
-    const lower = arr.slice(0,Math.floor(arr.length/2));
-    const upper = arr.slice(lower.length,arr.length);
-    
+//alternative version of quick sort
+function quickSort(arr, sorted = []) {
+  let left = [];
+  let right = [];
+
+  if (arr.length <= 1) {
+    sorted.push(...arr);
+    return arr;
   }
+  
+  let pivot = arr[arr.length - 1];
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] >= pivot) {
+      for (let j = i + 1; j < arr.length; j++) {
+        if (arr[j] <= pivot) {
+          let temp = arr[i];
+          arr[i] = arr[j];
+          arr[j] = temp;
+
+          break;
+        }
+      }
+      right.push(arr[i]);
+    } else left.push(arr[i]);
+  }
+  quickSort(left, sorted);
+  quickSort(right, sorted);
+  return sorted;
 }
-
-
-
 
 
 function checkPalindrome(word){
@@ -116,6 +114,8 @@ function checkPalindrome(word){
   
   else return checkPalindrome(word.slice(1,word.length-1));
 }
+
+
 
 function recursivePow(num,exp){
   if(exp===0) return 1;
@@ -134,6 +134,7 @@ function recursivePow(num,exp){
     return 1/recursivePow(num,-exp);
   }
 }
+
 
 
 function binarySearch(arr,element){
