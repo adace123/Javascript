@@ -75,15 +75,15 @@ function selectionSort(arr){
 
 //alternative version of quick sort
 function quickSort(arr, sorted = []) {
-  let left = [];
-  let right = [];
 
   if (arr.length <= 1) {
     sorted.push(...arr);
     return arr;
   }
-  
-  let pivot = arr[arr.length - 1];
+ 
+  let left = [], right = [],
+  pivot = arr[arr.length - 1];
+ 
   for (let i = arr.length - 1; i >= 0; i--) {
     if (arr[i-1] >= pivot) {
         let temp = arr[i-1];
