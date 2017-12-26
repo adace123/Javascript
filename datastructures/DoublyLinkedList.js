@@ -21,6 +21,25 @@ class DoublyLinkedList {
       h.next = this.tail;
    }
  }
+  
+  reverseList() {
+    
+    if(!this.head) {
+      return null;
+    } 
+    
+    let newHead = new Node(this.head.data, this.head.prev);
+    let temp = this.head;
+    while(temp.next) { 
+      let save = newHead;
+      newHead = new Node(temp.next.data, temp.next.prev);
+      newHead.next = save;
+      temp = temp.next;
+    }
+    
+    this.head = newHead;
+    return this.head;
+  }
  
  remove(element) {
    if(this.head === null) {
