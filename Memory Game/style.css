@@ -1,7 +1,9 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: Roboto;
 }
 
 .box-container {
@@ -9,6 +11,10 @@ body {
   margin: 10px;
   grid-template-columns: repeat(8, 1fr);
   grid-gap: 10px;
+}
+
+.stopwatch {
+  font-size: 18px;
 }
 
 #new-game {
@@ -33,7 +39,7 @@ body {
   color: white;
   display: flex;
   justify-content: space-between;
-  background-color: navy;
+  background-color: #2196f3;
   align-items: center;
   padding: 5px 15px;
 }
