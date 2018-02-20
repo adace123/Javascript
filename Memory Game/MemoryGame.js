@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from 'react-redux';
 import Box from "./Box";
 
 Array.prototype.hasMatch = function (element) {
@@ -6,11 +7,11 @@ Array.prototype.hasMatch = function (element) {
 }
 
 class MemoryGame extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     const colors = this.randomize(this.randomColors());
     this.state = {
-      boxes: Array(16).fill().map((el, i) => ({
+      boxes: Array(props.numBoxes).fill().map((el, i) => ({
         showing: false,
         color: colors[i]
       })),
@@ -18,10 +19,16 @@ class MemoryGame extends Component {
     };
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.reset) {
+      this.newGame();
+    }
+  }
+
   newGame = () => {
     const colors = this.randomize(this.randomColors());
     this.setState({
-      boxes: Array(16).fill().map((el, i) => ({
+      boxes: Array(this.props.numBoxes).fill().map((el, i) => ({
         showing: false,
         color: colors[i]
       })),
@@ -43,7 +50,7 @@ class MemoryGame extends Component {
 
   randomColors() {
     let randomColor = this.randomColor();
-    return Array(16).fill().map((color, i) => {
+    return Array(this.props.numBoxes).fill().map((color, i) => {
       if (i % 2 === 0) {
         randomColor = this.randomColor();
       }
@@ -52,15 +59,22 @@ class MemoryGame extends Component {
   }
 
   checkMatch = () => {
+    let match = false;
     const boxes = [...this.state.boxes];
     const showing = boxes.filter(box => box.showing).map(box => box.color);
     if (showing.length % 2 === 0) {
       boxes.forEach(({ color }, i) => {
         if (!showing.hasMatch(color)) {
           boxes[i].showing = false;
-        }
+        } else match = true;
       });
       this.setState({ boxes });
+      if(match) {
+        this.props.incMatch(1);
+      }
+      if (boxes.length === showing.length) {
+        this.props.stopGame();
+      }
     }
   }
 
@@ -68,24 +82,37 @@ class MemoryGame extends Component {
     clearTimeout(this.state.timeout);
     const boxes = [...this.state.boxes];
     boxes[index].showing = true;
-    this.setState({ boxes, timeout: setTimeout(() => this.checkMatch(), 500) });
+    this.setState({ boxes, timeout: setTimeout(() => this.checkMatch(), 600) });
   };
 
   render = () => {
     return (
       <div className="box-container">
         {
-          this.state.boxes.map(({ showing, color }, i) => 
-          <Box 
-            showing={showing}
-            color={color}
-            key={i}
-            onClick={() => this.switchColor(i)}
-          />)
+          this.state.boxes.map(({ showing, color }, i) =>
+            <Box
+              showing={showing}
+              color={color}
+              key={i}
+              onClick={() => this.switchColor(i)}
+            />)
         }
       </div>
     );
   };
 }
 
-export default MemoryGame;
+const mapStateToProps = (state) => {
+  return {
+    reset: state.reset
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    stopGame: () => dispatch({ type: 'STOP' }),
+    incMatch: () => dispatch({ type: 'MATCH' })
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MemoryGame);
