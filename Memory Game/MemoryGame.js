@@ -19,6 +19,10 @@ class MemoryGame extends Component {
     };
   }
 
+  componentDidMount() {
+    this.props.setNumBoxes(this.props.numBoxes);
+  }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.reset) {
       this.newGame();
@@ -59,19 +63,19 @@ class MemoryGame extends Component {
   }
 
   checkMatch = () => {
-    let match = false;
     const boxes = [...this.state.boxes];
     const showing = boxes.filter(box => box.showing).map(box => box.color);
     if (showing.length % 2 === 0) {
       boxes.forEach(({ color }, i) => {
         if (!showing.hasMatch(color)) {
           boxes[i].showing = false;
-        } else match = true;
+        } 
       });
+
       this.setState({ boxes });
-      if(match) {
-        this.props.incMatch(1);
-      }
+
+      this.props.setMatches(boxes.filter(({ color }) => showing.hasMatch(color)).length / 2);
+      
       if (boxes.length === showing.length) {
         this.props.stopGame();
       }
@@ -111,7 +115,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     stopGame: () => dispatch({ type: 'STOP' }),
-    incMatch: () => dispatch({ type: 'MATCH' })
+    setMatches: (match) => dispatch({ type: 'MATCH', payload: match }),
+    setNumBoxes: (boxes) => dispatch({ type: 'SET_NUM_BOXES', payload: boxes })
   }
 }
 
