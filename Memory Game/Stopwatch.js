@@ -16,18 +16,21 @@ class Stopwatch extends Component {
   componentWillReceiveProps({ reset, start }) {
     if (!start) {
       this.stopClock();
+      
     } else if (reset) {
       this.resetClock();
     }
   }
 
   resetClock() {
+    this.stopClock();
     this.setState({ hours: 0, minutes: 0, seconds: 0 });
     this.startClock();
   }
 
   stopClock() {
     this.setState({ timer: clearInterval(this.state.timer) });
+    this.props.saveTime(this.state.hours + ":" + this.state.minutes + ":" + this.state.seconds);
   }
 
   startClock() {
@@ -68,4 +71,10 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(Stopwatch);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    saveTime: (payload) => dispatch({ type: 'SAVE_TIME', payload })
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Stopwatch);
